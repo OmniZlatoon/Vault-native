@@ -9,5 +9,5 @@ router.get('/', userController.getUsers)
 // router.post('/signup', userSignInUp.signUp) // route to handle user sign up client
 router.post('/login', validateFirebaseToken, userSignInUp.login) // route to handle user login client
 router.post('/VerifyOTP', userOTP.verifyOTP)// route to verify the OTP sent to the client
-
+router.post('/resend', userSignInUp.resend)// resend otp for current user
 module.exports = router

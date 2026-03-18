@@ -5,6 +5,13 @@ exports.verifyOTP = async (req, res) => {
     try {
         const { email, otp } = req.body;
 
+
+        // 1. GUARD: Check if variables exist before touching Redis
+        if (!email || !otp) {
+            return res.status(400).json({ 
+                message: '[ERROR] - Email and OTP are required in the request body.' 
+            });
+        }
         // Retrieve the hashed OTP from Redis
         const storedHash = await redisClient.get(email);
         if (!storedHash) {

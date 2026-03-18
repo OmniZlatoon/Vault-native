@@ -34,8 +34,20 @@ exports.login = async (req, res) => {
         //--------------- OTP HASHING STATION ------------------------------//
 
        generateandSendOTP(email, uid, res);
+       res.status(200).json({message: "ok"});
     
     } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.resend= async(req, res) => {
+    try{
+        const {email} = req.body;
+         generateandSendOTP(email,  res);
+    }
+    catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
